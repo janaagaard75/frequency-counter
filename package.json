@@ -1,0 +1,9 @@
+{
+  "name": "frequency-counter",
+  "version": "1.0.0",
+  "description": "Crawl a website, count the words and order them by frequency.",
+  "repository": "https://github.com/janaagaard75/frequency-counter.git",
+  "author": "Jan Aagaard <jan@aagaard.net>",
+  "license": "MIT",
+  "private": true
+}
