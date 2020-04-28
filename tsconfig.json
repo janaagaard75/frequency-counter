@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "inlineSourceMap": true,
+    "inlineSources": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "outDir": "wwwroot",
