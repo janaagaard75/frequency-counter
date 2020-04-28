@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "outDir": "wwwroot",
+    "strict": true,
+    "target": "ES2019"
+  }
+}
