@@ -34,7 +34,9 @@ class WordFrequencyCounter {
 
     outputElement.innerHTML = pageUrls.join("\n")
 
-    const fetchWordsTasks = pageUrls.map((pageUrl) => this.fetchWords(pageUrl))
+    const fetchWordsTasks = pageUrls
+      .slice(0, 20)
+      .map((pageUrl) => this.fetchWords(pageUrl))
     const minimumWordLength = 5
     const words = (await Promise.all(fetchWordsTasks))
       .flat()
