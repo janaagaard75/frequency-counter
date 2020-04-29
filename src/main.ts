@@ -13,11 +13,11 @@ class WordFrequencyCounter {
     const sitemapString = await response.text()
     const parser = new DOMParser()
     const sitemap = parser.parseFromString(sitemapString, "application/xml")
-    const urls = Array.from(sitemap.querySelectorAll("loc")).map(
+    const pageUrls = Array.from(sitemap.querySelectorAll("loc")).map(
       (loc) => loc.textContent
     )
 
-    outputElement.innerHTML = urls.join("\n")
+    outputElement.innerHTML = pageUrls.join("\n")
   }
 }
 
