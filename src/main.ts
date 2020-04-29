@@ -15,15 +15,9 @@ class WordFrequencyCounter {
     statusElement.innerHTML = "Fetching"
     outputElement.innerHTML = ""
 
-    let response
-    try {
-      response = await fetch(this.sitemapUrl, {
-        mode: "navigate",
-      })
-    } catch (error) {
-      console.error(error)
-      return
-    }
+    const response = await fetch(
+      "https://cors-anywhere.herokuapp.com/" + this.sitemapUrl
+    )
 
     const sitemapString = await response.text()
     const parser = new DOMParser()
@@ -79,7 +73,9 @@ class WordFrequencyCounter {
   }
 
   private async fetchWords(pageUrl: string): Promise<Array<string>> {
-    const response = await fetch(pageUrl)
+    const response = await fetch(
+      "https://cors-anywhere.herokuapp.com/" + pageUrl
+    )
     const html = await response.text()
     const parser = new DOMParser()
     const document = parser.parseFromString(html, "text/html")
