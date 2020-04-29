@@ -6,12 +6,15 @@ class WordFrequencyCounter {
   constructor(private sitemapUrl: string) {}
 
   public async start() {
+    const statusElement = document.getElementById("status")
     const outputElement = document.getElementById("output")
-    if (outputElement === null) {
+    if (statusElement === null || outputElement === null) {
       return
     }
 
-    outputElement.innerHTML = "Fetching..."
+    statusElement.innerHTML = "Fetching"
+    outputElement.innerHTML = ""
+
 
     const response = await fetch(this.sitemapUrl)
     const sitemapString = await response.text()
@@ -61,6 +64,8 @@ class WordFrequencyCounter {
         (wordCount) =>
           (outputElement.innerHTML += `\n${wordCount.word}: ${wordCount.count}`)
       )
+
+    statusElement.innerHTML = "Done"
   }
 
   private async fetchWords(pageUrl: string): Promise<Array<string>> {
