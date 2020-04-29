@@ -103,3 +103,5 @@ function start(sitemapUrl: string) {
   const counter = new WordFrequencyCounter(sitemapUrl)
   counter.start()
 }
+
+;(window as any).start = start

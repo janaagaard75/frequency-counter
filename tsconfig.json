@@ -1,12 +1,10 @@
 {
   "compilerOptions": {
-    "inlineSourceMap": true,
-    "inlineSources": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "outDir": "wwwroot",
+    "moduleResolution": "Node",
+    "sourceMap": true,
     "strict": true,
     "target": "ES2019"
-  },
-  "include": ["src/**/*.ts"]
+  }
 }
