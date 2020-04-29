@@ -1,8 +1,5 @@
 {
-  "cSpell.words": [
-    "copyfiles",
-    "wwwroot"
-],
+  "cSpell.words": ["Aagaard", "copyfiles", "wwwroot"],
   "editor.formatOnSave": true,
   "editor.tabSize": 2,
   "typescript.tsdk": "node_modules/typescript/lib"
