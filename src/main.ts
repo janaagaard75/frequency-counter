@@ -8,7 +8,14 @@ class WordFrequencyCounter {
     const parser = new DOMParser()
     const sitemap = parser.parseFromString(sitemapString, "application/xml")
 
-    console.info(`Sitemap entries: ${sitemap.children[0].children.length}.`)
+    const urls = Array.from(sitemap.querySelectorAll("loc")).map(
+      (loc) => loc.textContent
+    )
+
+    const outputElement = document.getElementById("output")
+    if (outputElement !== null) {
+      outputElement.innerHTML = urls.join("\n")
+    }
   }
 }
 
