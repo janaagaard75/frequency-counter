@@ -7,7 +7,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "yarn install --frozen-lockfile && rimraf wwwroot && copyfiles --up 1 \"src/*.html\" wwwroot && concurrently --kill-others --names \"TSC,SERVE\" \"tsc --watch\" \"serve wwwroot\""
+    "start": "yarn install --frozen-lockfile && rimraf wwwroot && copyfiles --up 1 \"src/*.{html,png}\" wwwroot && concurrently --kill-others --names \"TSC,SERVE\" \"tsc --watch\" \"serve wwwroot\""
   },
   "devDependencies": {
     "concurrently": "5.2.0",
