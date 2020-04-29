@@ -15,8 +15,16 @@ class WordFrequencyCounter {
     statusElement.innerHTML = "Fetching"
     outputElement.innerHTML = ""
 
+    let response
+    try {
+      response = await fetch(this.sitemapUrl, {
+        mode: "navigate",
+      })
+    } catch (error) {
+      console.error(error)
+      return
+    }
 
-    const response = await fetch(this.sitemapUrl)
     const sitemapString = await response.text()
     const parser = new DOMParser()
     const sitemap = parser.parseFromString(sitemapString, "application/xml")
