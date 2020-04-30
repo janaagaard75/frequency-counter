@@ -25,6 +25,7 @@ class WordFrequencyCounter {
     const pageUrls = Array.from(sitemap.querySelectorAll("loc"))
       .map((loc) => loc.textContent)
       .filter(notEmpty)
+      .map((pageUrl) => `<a href="${pageUrl}">${pageUrl}</a>`)
 
     outputElement.innerHTML = pageUrls.join("\n")
 
@@ -79,14 +80,14 @@ class WordFrequencyCounter {
     const html = await response.text()
     const parser = new DOMParser()
     const document = parser.parseFromString(html, "text/html")
-    // TODO: Filter out scripts and CSS. Try with a positive list including only look at h* and p elements?
-    // TODO: Also look at the title and the meta description.
-    // TODO: Weight title, description and headers higher.
-    const content = document.querySelector("body")?.innerText
-    if (content === undefined) {
-      return []
+    const headers = document.querySelectorAll("title,h1,h2,h3,h4,h5,h6")
+    let content = Array.from(headers)
+      .map((header) => header.textContent)
+      .join(" ")
+    const metaDescription = document.querySelector('meta[name="description"]')
+    if (metaDescription !== null) {
+      content += " " + metaDescription.textContent
     }
-
     const words = content
       .replace(/[^a-zA-ZæøåÆØÅ0-9]/g, " ")
       .split(" ")
