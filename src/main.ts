@@ -4,18 +4,14 @@ function notEmpty<TValue>(value: TValue | null | undefined): value is TValue {
 
 class UniqueCharacterFinder {
   constructor(private sitemapUrl: string) {
-    this.outputElement = UniqueCharacterFinder.getElement(
-      "output"
-    ) as HTMLDivElement;
-    this.statusElement = UniqueCharacterFinder.getElement(
-      "status"
-    ) as HTMLDivElement;
+    this.outputElement = this.getElement("output") as HTMLDivElement;
+    this.statusElement = this.getElement("status") as HTMLDivElement;
   }
 
   private outputElement: HTMLDivElement;
   private statusElement: HTMLDivElement;
 
-  private static getElement(elementId: string): HTMLElement {
+  private getElement(elementId: string): HTMLElement {
     const element = document.getElementById(elementId);
     if (element === null) {
       throw new Error(`Did not find an element with id '${elementId}'.`);
@@ -27,13 +23,13 @@ class UniqueCharacterFinder {
     this.setStatus("Fetching");
     this.setOutput("");
 
-    const pageUrls = await UniqueCharacterFinder.getPageUrls(this.sitemapUrl);
+    const pageUrls = await this.getPageUrls(this.sitemapUrl);
 
     this.setOutput(pageUrls.join("\n"));
 
     const fetchWordsTasks = pageUrls
       .slice(0, 20)
-      .map((pageUrl) => UniqueCharacterFinder.fetchWords(pageUrl));
+      .map((pageUrl) => this.fetchWords(pageUrl));
     const minimumWordLength = 5;
     const words = (await Promise.all(fetchWordsTasks))
       .flat()
@@ -86,7 +82,7 @@ class UniqueCharacterFinder {
     this.statusElement.innerHTML = status;
   }
 
-  private static async getPageUrls(sitemapUrl: string): Promise<Array<string>> {
+  private async getPageUrls(sitemapUrl: string): Promise<Array<string>> {
     const response = await fetch(
       "https://cors-anywhere.herokuapp.com/" + sitemapUrl
     );
@@ -102,11 +98,11 @@ class UniqueCharacterFinder {
     return pageUrls;
   }
 
-  private static async fetchText(pageUrl: string): Promise<string> {
+  private async fetchText(pageUrl: string): Promise<string> {
     throw new Error("Not implemented.");
   }
 
-  private static async fetchWords(pageUrl: string): Promise<Array<string>> {
+  private async fetchWords(pageUrl: string): Promise<Array<string>> {
     const response = await fetch(
       "https://cors-anywhere.herokuapp.com/" + pageUrl
     );
