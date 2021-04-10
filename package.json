@@ -7,17 +7,19 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "yarn install --frozen-lockfile && rimraf wwwroot && copyfiles --up 1 \"src/*.{html,png}\" wwwroot && webpack --mode production",
-    "start": "yarn install --frozen-lockfile && rimraf wwwroot && copyfiles --up 1 \"src/*.{html,png}\" wwwroot && webpack-dev-server"
+    "build": "yarn run clean && webpack --mode production",
+    "clean": "yarn install --frozen-lockfile && rimraf wwwroot && copyfiles --up 1 \"src/*.{html,png}\" wwwroot",
+    "start": "yarn run clean && webpack-dev-server",
+    "update-packages": "yarn upgrade && npx syncyarnlock -k -s && yarn install"
   },
   "dependencies": {},
   "devDependencies": {
-    "copyfiles": "^2.4.0",
+    "copyfiles": "^2.4.1",
     "rimraf": "^3.0.2",
-    "ts-loader": "^8.0.11",
-    "typescript": "^3.9.7",
-    "webpack": "^4.44.2",
-    "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0"
+    "ts-loader": "^8.1.0",
+    "typescript": "^4.2.4",
+    "webpack": "^5.31.2",
+    "webpack-cli": "^4.6.0",
+    "webpack-dev-server": "^3.11.2"
   }
 }
