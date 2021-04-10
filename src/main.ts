@@ -3,21 +3,33 @@ function notEmpty<TValue>(value: TValue | null | undefined): value is TValue {
 }
 
 class UniqueCharacterFinder {
-  constructor(private sitemapUrl: string) {}
+  constructor(private sitemapUrl: string) {
+    this.outputElement = UniqueCharacterFinder.getElement(
+      "output"
+    ) as HTMLDivElement;
+    this.statusElement = UniqueCharacterFinder.getElement(
+      "status"
+    ) as HTMLDivElement;
+  }
+
+  private outputElement: HTMLDivElement;
+  private statusElement: HTMLDivElement;
+
+  private static getElement(elementId: string): HTMLElement {
+    const element = document.getElementById(elementId);
+    if (element === null) {
+      throw new Error(`Did not find an element with id '${elementId}'.`);
+    }
+    return element;
+  }
 
   public async start() {
-    const statusElement = document.getElementById("status");
-    const outputElement = document.getElementById("output");
-    if (statusElement === null || outputElement === null) {
-      return;
-    }
-
-    statusElement.innerHTML = "Fetching";
-    outputElement.innerHTML = "";
+    this.setStatus("Fetching");
+    this.setOutput("");
 
     const pageUrls = await UniqueCharacterFinder.getPageUrls(this.sitemapUrl);
 
-    outputElement.innerHTML = pageUrls.join("\n");
+    this.setOutput(pageUrls.join("\n"));
 
     const fetchWordsTasks = pageUrls
       .slice(0, 20)
@@ -51,16 +63,27 @@ class UniqueCharacterFinder {
       (wordCountA, wordCountB) => wordCountB.count - wordCountA.count
     );
 
-    outputElement.innerHTML += "\n";
+    this.addOutput("\n");
 
     sorted
       .slice(0, 50)
-      .forEach(
-        (wordCount) =>
-          (outputElement.innerHTML += `\n${wordCount.word}: ${wordCount.count}`)
+      .forEach((wordCount) =>
+        this.addOutput(`\n${wordCount.word}: ${wordCount.count}`)
       );
 
-    statusElement.innerHTML = "Done";
+    this.setStatus("Done");
+  }
+
+  private addOutput(output: string) {
+    this.outputElement.innerHTML += output;
+  }
+
+  private setOutput(output: string) {
+    this.outputElement.innerHTML = output;
+  }
+
+  private setStatus(status: string) {
+    this.statusElement.innerHTML = status;
   }
 
   private static async getPageUrls(sitemapUrl: string): Promise<Array<string>> {
@@ -77,6 +100,10 @@ class UniqueCharacterFinder {
       .map((pageUrl) => `<a href="${pageUrl}">${pageUrl}</a>`);
 
     return pageUrls;
+  }
+
+  private static async fetchText(pageUrl: string): Promise<string> {
+    throw new Error("Not implemented.");
   }
 
   private static async fetchWords(pageUrl: string): Promise<Array<string>> {
