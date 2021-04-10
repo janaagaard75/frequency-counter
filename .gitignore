@@ -1,3 +1,13 @@
 /node_modules/
 /wwwroot/
 *.log
+
+# Yarn Berry, not using zero-installs.
+# See https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
