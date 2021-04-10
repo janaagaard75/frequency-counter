@@ -25,15 +25,19 @@ class UniqueCharacterFinder {
 
     const pageUrls = await this.getPageUrls(this.sitemapUrl);
 
-    this.setOutput(pageUrls.join("\n"));
+    this.setOutput(`Found ${pageUrls.length} URLs in sitemap.`);
 
     const fetchTextTasks = pageUrls
       .slice(0, 50)
       .map((pageUrl) => this.fetchText(pageUrl));
 
-    const uniqueCharacters = this.getUniqueCharacters(
-      (await Promise.all(fetchTextTasks)).flat().join()
-    )
+    const texts = (await Promise.all(fetchTextTasks)).flat();
+    this.addOutput(`\nFetched ${texts.length} pages.`);
+    this.addOutput(
+      `nPage lengths: ${texts.map((text) => text.length).join(", ")}.`
+    );
+
+    const uniqueCharacters = this.getUniqueCharacters(texts.join())
       .filter((char) => char !== " ")
       .sort();
 
@@ -63,6 +67,8 @@ class UniqueCharacterFinder {
     );
 
     const sitemapString = await response.text();
+    this.addOutput(`\nLength of sitemap: ${sitemapString.length}.`);
+
     const parser = new DOMParser();
     const sitemap = parser.parseFromString(sitemapString, "application/xml");
     const pageUrls = Array.from(sitemap.querySelectorAll("loc"))
