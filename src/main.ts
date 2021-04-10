@@ -2,7 +2,7 @@ function notEmpty<TValue>(value: TValue | null | undefined): value is TValue {
   return value !== null && value !== undefined
 }
 
-class WordFrequencyCounter {
+class UniqueCharacterFinder {
   constructor(private sitemapUrl: string) {}
 
   public async start() {
@@ -99,8 +99,8 @@ class WordFrequencyCounter {
 
 function start(sitemapUrl: string) {
   event?.preventDefault()
-  const counter = new WordFrequencyCounter(sitemapUrl)
-  counter.start()
+  const characterFinder = new UniqueCharacterFinder(sitemapUrl)
+  characterFinder.start()
 }
 
 ;(window as any).start = start

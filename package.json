@@ -1,8 +1,8 @@
 {
-  "name": "frequency-counter",
-  "version": "0.0.1",
-  "description": "Crawl a website, count the words and order them by frequency.",
-  "repository": "https://github.com/janaagaard75/frequency-counter.git",
+  "name": "unique-characters",
+  "version": "0.0.0",
+  "description": "Crawl a website based on the sitemap and return a list of all unique characters used.",
+  "repository": "https://github.com/janaagaard75/unique-characters.git",
   "author": "Jan Aagaard <jan@aagaard.net>",
   "license": "MIT",
   "private": true,
