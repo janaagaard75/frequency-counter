@@ -21,7 +21,7 @@ class UniqueCharacterFinder {
 
     const fetchWordsTasks = pageUrls
       .slice(0, 20)
-      .map((pageUrl) => this.fetchWords(pageUrl));
+      .map((pageUrl) => UniqueCharacterFinder.fetchWords(pageUrl));
     const minimumWordLength = 5;
     const words = (await Promise.all(fetchWordsTasks))
       .flat()
@@ -79,7 +79,7 @@ class UniqueCharacterFinder {
     return pageUrls;
   }
 
-  private async fetchWords(pageUrl: string): Promise<Array<string>> {
+  private static async fetchWords(pageUrl: string): Promise<Array<string>> {
     const response = await fetch(
       "https://cors-anywhere.herokuapp.com/" + pageUrl
     );
