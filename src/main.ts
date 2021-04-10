@@ -2,6 +2,24 @@ function notEmpty<TValue>(value: TValue | null | undefined): value is TValue {
   return value !== null && value !== undefined
 }
 
+class SitemapFetcher {
+  public static async getPageUrls(sitemapUrl: string): Promise<Array<string>> {
+    const response = await fetch(
+      "https://cors-anywhere.herokuapp.com/" + sitemapUrl
+    )
+
+    const sitemapString = await response.text()
+    const parser = new DOMParser()
+    const sitemap = parser.parseFromString(sitemapString, "application/xml")
+    const pageUrls = Array.from(sitemap.querySelectorAll("loc"))
+      .map((loc) => loc.textContent)
+      .filter(notEmpty)
+      .map((pageUrl) => `<a href="${pageUrl}">${pageUrl}</a>`)
+
+    return pageUrls
+  }
+}
+
 class UniqueCharacterFinder {
   constructor(private sitemapUrl: string) {}
 
@@ -15,17 +33,7 @@ class UniqueCharacterFinder {
     statusElement.innerHTML = "Fetching"
     outputElement.innerHTML = ""
 
-    const response = await fetch(
-      "https://cors-anywhere.herokuapp.com/" + this.sitemapUrl
-    )
-
-    const sitemapString = await response.text()
-    const parser = new DOMParser()
-    const sitemap = parser.parseFromString(sitemapString, "application/xml")
-    const pageUrls = Array.from(sitemap.querySelectorAll("loc"))
-      .map((loc) => loc.textContent)
-      .filter(notEmpty)
-      .map((pageUrl) => `<a href="${pageUrl}">${pageUrl}</a>`)
+    const pageUrls = await SitemapFetcher.getPageUrls(this.sitemapUrl)
 
     outputElement.innerHTML = pageUrls.join("\n")
 
