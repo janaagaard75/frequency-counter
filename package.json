@@ -8,8 +8,8 @@
   "private": true,
   "scripts": {
     "build": "yarn run clean && webpack --mode production",
-    "clean": "yarn install --frozen-lockfile && rimraf wwwroot && copyfiles --up 1 \"src/*.{html,png}\" wwwroot",
-    "start": "yarn run clean && webpack-dev-server",
+    "clean": "yarn install --immutable && rimraf wwwroot && copyfiles --up 1 \"src/*.{html,png}\" wwwroot",
+    "start": "yarn run clean && webpack serve --open",
     "update-packages": "yarn upgrade && npx syncyarnlock -k -s && yarn install"
   },
   "devDependencies": {
