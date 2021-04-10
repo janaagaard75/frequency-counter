@@ -1,5 +1,12 @@
 {
-  "cSpell.words": ["Aagaard", "Zæøå", "copyfiles", "devtool", "wwwroot"],
+  "cSpell.words": [
+    "Aagaard",
+    "Zæøå",
+    "copyfiles",
+    "devtool",
+    "syncyarnlock",
+    "wwwroot"
+  ],
   "editor.formatOnSave": true,
   "editor.tabSize": 2,
   "typescript.tsdk": "node_modules/typescript/lib"
