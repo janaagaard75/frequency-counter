@@ -27,8 +27,9 @@ class UniqueCharacterFinder {
 
     this.setOutput(`Found ${pageUrls.length} URLs in sitemap.`);
 
+    const maximumNumberOfPages = 2;
     const fetchTextTasks = pageUrls
-      .slice(0, 50)
+      .slice(0, maximumNumberOfPages)
       .map((pageUrl) => this.fetchText(pageUrl));
 
     const texts = (await Promise.all(fetchTextTasks)).flat();
@@ -88,6 +89,12 @@ class UniqueCharacterFinder {
     const html = await response.text();
     const parser = new DOMParser();
     const document = parser.parseFromString(html, "text/html");
+
+    const menu =
+      document.documentElement.children[1].children[0].children[0].children[0]
+        .children[0].children[0].children[0].children[2];
+    this.addOutput(`\nFirst child: ${menu.tagName}`);
+
     const text = document.documentElement.textContent ?? "";
     return text;
   }
