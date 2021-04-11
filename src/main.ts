@@ -63,7 +63,7 @@ class UniqueCharacterFinder {
 
   private async getPageUrls(sitemapUrl: string): Promise<Array<string>> {
     const response = await fetch(
-      "https://cors-anywhere.herokuapp.com/" + sitemapUrl
+      `https://cors-anywhere.herokuapp.com/${sitemapUrl}`
     );
 
     const sitemapString = await response.text();
@@ -83,7 +83,7 @@ class UniqueCharacterFinder {
 
   private async fetchText(pageUrl: string): Promise<string> {
     const response = await fetch(
-      "https://cors-anywhere.herokuapp.com/" + pageUrl
+      `https://cors-anywhere.herokuapp.com/${pageUrl}`
     );
     const html = await response.text();
     const parser = new DOMParser();
