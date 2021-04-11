@@ -34,14 +34,14 @@ class UniqueCharacterFinder {
     const texts = (await Promise.all(fetchTextTasks)).flat();
     this.addOutput(`\nFetched ${texts.length} pages.`);
     this.addOutput(
-      `nPage lengths: ${texts.map((text) => text.length).join(", ")}.`
+      `\nPage lengths: ${texts.map((text) => text.length).join(", ")}.`
     );
 
     const uniqueCharacters = this.getUniqueCharacters(texts.join())
       .filter((char) => char !== " ")
       .sort();
 
-    this.addOutput("\n") + uniqueCharacters.join(" ");
+    this.addOutput(`\nUnique characters:\n${uniqueCharacters.join("\n")}`);
     this.setStatus("Done");
   }
 
@@ -71,10 +71,12 @@ class UniqueCharacterFinder {
 
     const parser = new DOMParser();
     const sitemap = parser.parseFromString(sitemapString, "application/xml");
+    this.addOutput(`Sitemap: ${sitemap.documentElement.innerHTML}`);
+
     const pageUrls = Array.from(sitemap.querySelectorAll("loc"))
       .map((loc) => loc.textContent)
-      .filter(notEmpty)
-      .map((pageUrl) => `<a href="${pageUrl}">${pageUrl}</a>`);
+      .filter(notEmpty);
+    // .map((pageUrl) => `<a href="${pageUrl}">${pageUrl}</a>`);
 
     return pageUrls;
   }
