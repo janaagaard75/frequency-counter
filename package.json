@@ -10,7 +10,7 @@
     "build": "yarn run clean && webpack --mode production",
     "clean": "yarn install --immutable && rimraf wwwroot && copyfiles --up 1 \"src/*.{html,png}\" wwwroot",
     "start": "yarn run clean && webpack serve --open",
-    "update-packages": "yarn upgrade && npx syncyarnlock -k -s && yarn install"
+    "update-packages": "yarn upgrade && npx syncyarnlock --keepPrefix --save && yarn install"
   },
   "devDependencies": {
     "copyfiles": "^2.4.1",
